@@ -172,13 +172,14 @@ XLM-RoBERTa    PostgreSQL       Redis
 - [ ] Ghi kết quả vào `docs/training_results.md` (accuracy, macro-F1, confusion matrix, per-class)
 
 ### Backend Developer
-- [x] Implement Redis cache cho `/predict`:
+- [ ] Implement Redis cache cho `/predict`:
   - Cache key: `sha256(text.encode()).hexdigest()`
   - TTL: 3600 giây
   - Fallback nếu Redis down: gọi thẳng model
-- [x] Implement `POST /api/v1/patients`, `GET /api/v1/patients`
-- [x] Implement `POST /api/v1/records`, `GET /api/v1/records`
-- [x] Seed `drug_groups` từ `taxonomy.py` vào DB (`scripts/seed_drug_groups.py`)
+- [ ] Implement `POST /api/v1/patients`, `GET /api/v1/patients`
+- [ ] Implement `POST /api/v1/records`, `GET /api/v1/records`
+- [ ] Seed `drug_groups` từ `taxonomy.py` vào DB (`scripts/seed_drug_groups.py`)
+
 
 ### Frontend Dev 1
 - [ ] Build `AnalyticsDashboard` page với Recharts:
@@ -260,14 +261,15 @@ XLM-RoBERTa    PostgreSQL       Redis
 | Method | Endpoint | Người làm | Tuần |
 |--------|----------|-----------|------|
 | GET    | `/api/health` | Backend | ✅ done |
-| POST   | `/api/v1/predict` | Backend | ✅ done |
+| POST   | `/api/v1/predict` | Backend | 2 |
 | POST   | `/api/v1/predict/explain` | Backend + ML | 2–3 |
 | GET    | `/api/v1/predict/history` | Backend | 2 |
 | GET    | `/api/v1/drug-groups` | Backend | 2 |
-| GET    | `/api/v1/patients` | Backend | ✅ done |
-| POST   | `/api/v1/patients` | Backend | ✅ done |
-| GET    | `/api/v1/records` | Backend | ✅ done |
-| POST   | `/api/v1/records` | Backend | ✅ done |
+| GET    | `/api/v1/patients` | Backend | 3 |
+| POST   | `/api/v1/patients` | Backend | 3 |
+| GET    | `/api/v1/records` | Backend | 3 |
+| POST   | `/api/v1/records` | Backend | 3 |
+
 | GET    | `/api/analytics/overview` | Data | 2 |
 | GET    | `/api/analytics/popular-symptoms` | Data | 2 |
 | GET    | `/api/analytics/drug-group-distribution` | Data | 2 |
