@@ -107,8 +107,7 @@ XLM-RoBERTa    PostgreSQL       Redis
 
 ### Documentation
 - [ ] Cập nhật `README.md` — sửa "Mamba-3" → "XLM-RoBERTa + LoRA" toàn bộ
-- [ ] Viết `CLAUDE.md` — hướng dẫn onboard dev mới (cấu trúc code, cách chạy local)
-- [ ] Hoàn thiện `.env.example` với tất cả biến cần thiết
+
 
 ---
 
@@ -254,19 +253,7 @@ XLM-RoBERTa    PostgreSQL       Redis
 
 ---
 
-## Sơ đồ phụ thuộc (ai chờ ai)
 
-```
-ML (taxonomy.py) ──────────────────────────▶ Backend (seed drug_groups vào DB)
-ML (inference.py) ─────────────────────────▶ Backend (wire model vào lifespan)
-Backend (/predict ready) ──────────────────▶ FE2 (thay mock → API thật)
-Backend (/analytics ready) ────────────────▶ Data (connect dashboard)
-FE1 (XAIPanel component) ──────────────────▶ FE2 (wire XAI token data)
-FE1 (AnalyticsDashboard) ──────────────────▶ Data (connect analytics endpoints)
-Data (search_log_middleware) ───────────────▶ Data (analytics queries có data)
-```
-
----
 
 ## Tất cả API Endpoints
 
@@ -304,4 +291,3 @@ Data (search_log_middleware) ───────────────▶ Da
 
 ---
 
-*Cập nhật lần cuối: 2026-06-11*
