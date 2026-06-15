@@ -180,6 +180,7 @@ XLM-RoBERTa    PostgreSQL       Redis
 - [ ] Implement `POST /api/v1/records`, `GET /api/v1/records`
 - [ ] Seed `drug_groups` từ `taxonomy.py` vào DB (`scripts/seed_drug_groups.py`)
 
+
 ### Frontend Dev 1
 - [ ] Build `AnalyticsDashboard` page với Recharts:
   - Biểu đồ cột: top 5 nhóm thuốc được dự đoán nhiều nhất
@@ -268,6 +269,7 @@ XLM-RoBERTa    PostgreSQL       Redis
 | POST   | `/api/v1/patients` | Backend | 3 |
 | GET    | `/api/v1/records` | Backend | 3 |
 | POST   | `/api/v1/records` | Backend | 3 |
+
 | GET    | `/api/analytics/overview` | Data | 2 |
 | GET    | `/api/analytics/popular-symptoms` | Data | 2 |
 | GET    | `/api/analytics/drug-group-distribution` | Data | 2 |
