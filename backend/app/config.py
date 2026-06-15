@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # --- Database ---
-    DATABASE_URL: str = "postgresql+asyncpg://admin:secret@localhost:5432/pj_medicine"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./test.db"
 
     # --- Redis ---
     REDIS_URL: str = "redis://localhost:6379/0"
