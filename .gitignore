@@ -49,7 +49,7 @@ node_modules/
 *.bin
 *.onnx
 *.zip
-backend/ml/models/drugpred-model/
+backend/ml/model
 
 # Database
 *.db

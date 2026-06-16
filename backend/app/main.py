@@ -41,6 +41,10 @@ async def lifespan(app: FastAPI):
     from sqlalchemy import select
     import uuid
     
+    # Auto-create tables if they don't exist
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        
     import sys
     import os
     # Ensure ml module can be imported if running from backend root

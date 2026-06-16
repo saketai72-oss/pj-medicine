@@ -10,9 +10,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # Cấu hình đường dẫn
 MODEL_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(MODEL_DIR, "models", "drugpred-model", "model", "best_model.pt")
-TOKENIZER_DIR = os.path.join(MODEL_DIR, "models", "drugpred-model", "model", "tokenizer")
-LABEL_MAP_PATH = os.path.join(MODEL_DIR, "models", "drugpred-model", "model", "label_map.json")
+MODEL_PATH = os.path.join(MODEL_DIR, "model", "best_model.pt")
+TOKENIZER_DIR = os.path.join(MODEL_DIR, "model", "tokenizer")
+LABEL_MAP_PATH = os.path.join(MODEL_DIR, "model", "label_map.json")
 
 # Định nghĩa lại class mô hình khớp với checkpoints đã train
 class DrugGroupClassifier(nn.Module):

@@ -19,7 +19,7 @@ import torch.nn as nn
 from transformers import AutoModel, AutoTokenizer
 
 # Paths
-MODEL_DIR = Path(__file__).parent / "models" / "drugpred-model" / "model"
+MODEL_DIR = Path(__file__).parent / "model"
 MODEL_PATH = MODEL_DIR / "best_model.pt"
 TOKENIZER_DIR = MODEL_DIR / "tokenizer"
 LABEL_MAP_PATH = MODEL_DIR / "label_map.json"

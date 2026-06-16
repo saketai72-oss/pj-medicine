@@ -3,8 +3,9 @@ import sys
 import os
 import uuid
 
-# Add backend to path so we can import from app and ml
+# Add backend and root to path so we can import from app and ml
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.db.session import AsyncSessionLocal
 from app.models.drug_group import DrugGroup
