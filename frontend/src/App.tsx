@@ -238,9 +238,9 @@ export default function App() {
       } else {
         toast.success("Phân tích kết quả thành công!");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Đã xảy ra lỗi khi kết nối dịch vụ API!");
+      toast.error(err instanceof Error ? err.message : "Đã xảy ra lỗi khi kết nối dịch vụ API!");
     } finally {
       setIsLoading(false);
     }
@@ -374,6 +374,7 @@ export default function App() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-text hover:text-primary transition-colors rounded-lg"
               aria-expanded={isMobileMenuOpen}
+              aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -409,7 +410,6 @@ export default function App() {
           </h1>
           <p className="text-xl text-text/75 mb-12 max-w-2xl leading-relaxed">
             Hệ thống hỗ trợ quyết định lâm sàng thế hệ mới. Áp dụng kiến trúc Dynamic Expert Switching với XLM-RoBERTa đa ngữ giúp phân loại bệnh án tiếng Việt chính xác, độ trễ tính bằng mili-giây, tích hợp bản đồ nhiệt giải thích XAI.
-          </p>
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
             <button 
@@ -528,11 +528,6 @@ export default function App() {
               <span className="text-xl font-bold font-heading">Drug-Pred AI</span>
             </div>
             <div className="flex flex-col items-center md:items-end gap-2">
-              <div className="flex gap-4 text-sm text-white/50">
-                <button onClick={() => setView('404')} className="hover:text-white">Demo 404</button>
-                <span>|</span>
-                <button onClick={() => setView('error')} className="hover:text-white">Demo Error</button>
-              </div>
               <p className="text-white/50 text-sm">© 2026 PJ-Medicine. Phục vụ mục đích Nghiên cứu.</p>
             </div>
           </div>
@@ -555,6 +550,7 @@ export default function App() {
               onClick={() => setView('landing')}
               className="p-1.5 hover:bg-white border hover:border-gray-200 rounded-md transition text-text/75"
               title="Về Landing Page"
+              aria-label="Về Landing Page"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -651,7 +647,7 @@ export default function App() {
             <div>
               <h3 className="text-xs font-bold text-text/75 uppercase tracking-wider mb-3">2. Bệnh án mẫu</h3>
               <div className="flex flex-col gap-3">
-                {activeSpecialty.cases.map((c: any, i: number) => (
+                {activeSpecialty.cases.map((c: { title: string; text: string; }, i: number) => (
                   <div 
                     key={i}
                     role="button"
@@ -669,11 +665,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Demo View Toggles */}
-        <div className="p-4 border-t border-gray-100 flex justify-between text-xs text-text/75 bg-gray-50/50 mt-auto">
-          <button onClick={() => setView('404')} className="hover:text-primary font-medium">Demo 404</button>
-          <button onClick={() => setView('error')} className="hover:text-primary font-medium">Demo Error</button>
-        </div>
       </aside>
 
       {/* Main Content Pane */}
