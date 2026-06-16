@@ -143,6 +143,7 @@ export interface DrugGroup {
   category: string;
   description?: string;
   commonDrugs?: string[];
+  common_drugs?: string[];
   contraindications?: string[];
   sideEffects?: string[];
 }
@@ -174,3 +175,15 @@ export interface ApiError {
   detail: string;
   statusCode: number;
 }
+
+export interface PredictionResult {
+  drug_group_name: string;
+  confidence: number;
+  rank: number;
+}
+
+export interface XAIToken {
+  token: string;
+  score: number;
+}
+
