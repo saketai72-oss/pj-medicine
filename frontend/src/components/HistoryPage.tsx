@@ -158,8 +158,15 @@ export default function HistoryPage() {
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-6">
       <header className="mb-2">
-        <h2 className="text-3xl font-bold font-heading text-text">Lịch sử Dự đoán</h2>
-        <p className="text-text/70 text-sm mt-1">Tra cứu và phân tích các ca dự đoán bệnh án lâm sàng đã thực hiện</p>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-primary text-[10px] font-bold mb-2 border border-blue-100/60 uppercase tracking-wider">
+          Tra cứu lâm sàng
+        </div>
+        <h2 className="text-3xl font-bold font-heading">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+            Lịch sử Dự đoán
+          </span>
+        </h2>
+        <p className="text-text/65 text-sm mt-1">Tra cứu và phân tích các ca dự đoán bệnh án lâm sàng đã thực hiện</p>
       </header>
 
       {/* Filters Bar */}
@@ -215,7 +222,9 @@ export default function HistoryPage() {
           </div>
         ) : history.length === 0 ? (
           <div className="p-16 flex flex-col items-center gap-3 text-center">
-            <AlertCircle className="w-12 h-12 text-gray-300" />
+            <div className="w-14 h-14 rounded-full bg-primary/8 border border-primary/15 flex items-center justify-center">
+              <AlertCircle className="w-7 h-7 text-primary/60" />
+            </div>
             <span className="text-lg font-bold text-text/75">Không tìm thấy bản ghi nào</span>
             <span className="text-sm text-text/50">Vui lòng thực hiện thêm dự đoán hoặc thay đổi bộ lọc.</span>
           </div>
@@ -223,7 +232,7 @@ export default function HistoryPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-gray-50 border-b border-gray-100 text-xs text-text/50 font-bold uppercase tracking-wider">
+                <tr className="bg-blue-50/30 border-b border-primary/10 text-xs text-primary/70 font-bold uppercase tracking-wider">
                   <th className="p-5">Mã bệnh án / Ca</th>
                   <th className="p-5">Chuyên khoa</th>
                   <th className="p-5">Dự đoán Top 1</th>
@@ -323,14 +332,20 @@ export default function HistoryPage() {
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
             {/* Header */}
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+            <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-white">
               <div>
-                <h3 className="text-xl font-bold font-heading text-text">Chi tiết Dự đoán Lâm sàng</h3>
-                <p className="text-xs text-text/50 mt-1">ID: {selectedPred.id}</p>
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-primary text-[9px] font-bold mb-1.5 border border-blue-100/60 uppercase tracking-wider">
+                  XLM-RoBERTa · CDSS
+                </div>
+                <h3 className="text-xl font-bold font-heading">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    Chi tiết Dự đoán Lâm sàng
+                  </span>
+                </h3>
               </div>
               <button
                 onClick={() => setSelectedPred(null)}
-                className="px-4 py-2 border border-gray-200 hover:bg-gray-100 rounded-xl transition text-xs font-semibold text-text/75"
+                className="px-4 py-2 border border-gray-200 hover:bg-gray-50 rounded-xl transition text-xs font-semibold text-text/60"
               >
                 Đóng
               </button>

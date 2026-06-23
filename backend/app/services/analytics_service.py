@@ -1,4 +1,4 @@
-from sqlalchemy.ext.asyncio import AsyncSession
+﻿from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 import csv
 import io
@@ -34,23 +34,13 @@ class AnalyticsService:
 
     async def get_daily_usage(self, days: int = 7) -> List[Dict[str, Any]]:
         query = text("""
-            SELECT DATE(created_at) as date, COUNT(*) as count 
-            FROM search_logs 
-            WHERE created_at >= CURRENT_DATE - INTERVAL ':days days'
-            GROUP BY DATE(created_at) 
+            SELECT DATE(created_at) as date, COUNT(*) as count
+            FROM search_logs
+            WHERE created_at >= CURRENT_DATE - (:days * INTERVAL '1 day')
+            GROUP BY DATE(created_at)
             ORDER BY date ASC
         """)
-        # We need to manually inject the interval for postgres depending on driver, 
-        # or use standard parameter passing where supported.
-        # simpler postgres compatible approach:
-        query = text(f"""
-            SELECT DATE(created_at) as date, COUNT(*) as count 
-            FROM search_logs 
-            WHERE created_at >= CURRENT_DATE - INTERVAL '{days} days'
-            GROUP BY DATE(created_at) 
-            ORDER BY date ASC
-        """)
-        result = await self.db.execute(query)
+        result = await self.db.execute(query, {"days": days})
         return [{"date": str(row.date), "count": row.count} for row in result]
 
     async def get_search_trends(self) -> List[Dict[str, Any]]:
