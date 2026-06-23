@@ -14,6 +14,9 @@ import { Toaster, toast } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { setUnauthorizedHandler } from './services/api';
 import LoginPage from './components/LoginPage';
+import DatabaseDesignSection from './components/DatabaseDesignSection';
+import ModelPerformanceSection from './components/ModelPerformanceSection';
+import DatasetSection from './components/DatasetSection';
 
 // API Imports
 import {
@@ -321,6 +324,7 @@ function AppInner() {
       <div>
         <Toaster position="top-right" />
         <LoginPage
+          onBack={() => setView('landing')}
           onSuccess={() => {
             const token = localStorage.getItem('access_token');
             let role = '';
@@ -337,9 +341,9 @@ function AppInner() {
   // --- ADMIN VIEW ---
   if (view === 'admin') {
     return (
-      <div className="min-h-screen bg-slate-950">
+      <div className="min-h-screen bg-[#F8FAFC]">
         <Toaster position="top-right" />
-        <React.Suspense fallback={<div className="text-white p-8">Loading...</div>}>
+        <React.Suspense fallback={<div className="text-slate-700 p-8">Loading...</div>}>
           <AdminDashboard
             onBack={() => setView('dashboard')}
             onLogout={() => { auth.logout(); setView('login'); }}
@@ -437,8 +441,11 @@ function AppInner() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8 text-sm font-medium">
               <a href="#overview" className="text-text/70 hover:text-primary transition-colors">Tổng quan</a>
-              <a href="#architecture" className="text-text/70 hover:text-primary transition-colors">Dynamic Expert Switching</a>
+              <a href="#architecture" className="text-text/70 hover:text-primary transition-colors">Kiến trúc</a>
               <a href="#techstack" className="text-text/70 hover:text-primary transition-colors">Công nghệ</a>
+              <a href="#database" className="text-text/70 hover:text-primary transition-colors">CSDL Design</a>
+              <a href="#dataset" className="text-text/70 hover:text-primary transition-colors">Dataset</a>
+              <a href="#performance" className="text-text/70 hover:text-primary transition-colors">Model Eval</a>
               <button
                 onClick={() => auth.isAuthenticated ? setView(auth.isAdmin ? 'admin' : 'dashboard') : setView('login')}
                 className="px-6 py-2.5 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 hover:scale-105 transition-all shadow-md shadow-primary/20 flex items-center gap-2"
@@ -467,8 +474,11 @@ function AppInner() {
           {isMobileMenuOpen && (
             <div className="md:hidden border-b border-gray-100 bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4">
               <a href="#overview" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Tổng quan</a>
-              <a href="#architecture" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Dynamic Expert Switching</a>
+              <a href="#architecture" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Kiến trúc</a>
               <a href="#techstack" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Công nghệ</a>
+              <a href="#database" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">CSDL Design</a>
+              <a href="#dataset" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Dataset</a>
+              <a href="#performance" onClick={() => setIsMobileMenuOpen(false)} className="text-text/75 hover:text-primary font-medium transition py-1">Model Eval</a>
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
@@ -677,6 +687,12 @@ function AppInner() {
           </div>
         </section>
 
+        <DatabaseDesignSection />
+
+        <DatasetSection />
+
+        <ModelPerformanceSection />
+
         {/* Footer */}
         <footer className="bg-slate-950 text-white pt-16 pb-8">
           <div className="max-w-6xl mx-auto px-6">
@@ -730,12 +746,10 @@ function AppInner() {
               </div>
             </div>
 
-            <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="border-t border-white/10 pt-6 flex justify-center items-center">
               <p className="text-white/50 text-sm">
                 © 2026 Drug-Pred AI. All Rights Reserved.
               </p>
-
-
             </div>
           </div>
         </footer>
@@ -749,78 +763,51 @@ function AppInner() {
       <Toaster position="top-right" />
 
       {/* Sidebar navigation */}
-      <aside className="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col md:h-screen sticky top-0 shadow-lg shadow-gray-200/20 z-20">
+      <aside className="w-full md:w-80 bg-white border-r border-gray-100 flex flex-col md:h-screen sticky top-0 shadow-sm z-20">
+        {/* Cyan accent strip */}
+        <div className="h-0.5 w-full bg-gradient-to-r from-primary to-secondary shrink-0" aria-hidden="true" />
         {/* Top brand */}
-        <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-white">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setView("landing")}
-              className="p-1.5 hover:bg-white border hover:border-gray-200 rounded-md transition text-text/75"
+              className="p-1.5 hover:bg-gray-50 border border-transparent hover:border-gray-200 rounded-md transition text-text/60"
               title="Về Landing Page"
               aria-label="Về Landing Page"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="font-bold font-heading text-primary text-lg flex items-center gap-2">
-              <Microscope className="w-5 h-5" />
-              Clinical CDSS
+            <div className="font-bold font-heading text-lg flex items-center gap-2">
+              <Microscope className="w-4 h-4 text-primary" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Clinical CDSS
+              </span>
             </div>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="px-4 py-3 border-b border-gray-100 flex flex-row md:flex-col gap-1 overflow-x-auto shrink-0">
-          <button
-            onClick={() => setSubView("predict")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2.5 rounded-xl text-left transition font-semibold text-xs whitespace-nowrap shrink-0 w-auto md:w-full",
-              subView === "predict"
-                ? "bg-primary/10 text-primary"
-                : "text-text/60 hover:bg-gray-50 hover:text-text",
-            )}
-          >
-            <Activity className="w-4 h-4" />
-            Dự đoán Lâm sàng
-          </button>
-
-          <button
-            onClick={() => setSubView("patients")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2.5 rounded-xl text-left transition font-semibold text-xs whitespace-nowrap shrink-0 w-auto md:w-full",
-              subView === "patients"
-                ? "bg-primary/10 text-primary"
-                : "text-text/60 hover:bg-gray-50 hover:text-text",
-            )}
-          >
-            <Users className="w-4 h-4" />
-            Bệnh nhân
-          </button>
-
-          <button
-            onClick={() => setSubView("history")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2.5 rounded-xl text-left transition font-semibold text-xs whitespace-nowrap shrink-0 w-auto md:w-full",
-              subView === "history"
-                ? "bg-primary/10 text-primary"
-                : "text-text/60 hover:bg-gray-50 hover:text-text",
-            )}
-          >
-            <ClipboardList className="w-4 h-4" />
-            Lịch sử
-          </button>
-
-          <button
-            onClick={() => setSubView("analytics")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2.5 rounded-xl text-left transition font-semibold text-xs whitespace-nowrap shrink-0 w-auto md:w-full",
-              subView === "analytics"
-                ? "bg-primary/10 text-primary"
-                : "text-text/60 hover:bg-gray-50 hover:text-text",
-            )}
-          >
-            <LineChart className="w-4 h-4" />
-            Thống kê
-          </button>
+        <div className="px-3 py-3 border-b border-gray-100 flex flex-row md:flex-col gap-0.5 overflow-x-auto shrink-0">
+          {([
+            { id: 'predict', icon: Activity, label: 'Dự đoán Lâm sàng' },
+            { id: 'patients', icon: Users, label: 'Bệnh nhân' },
+            { id: 'history', icon: ClipboardList, label: 'Lịch sử' },
+            { id: 'analytics', icon: LineChart, label: 'Thống kê' },
+          ] as const).map(({ id, icon: Icon, label }) => (
+            <button
+              key={id}
+              onClick={() => setSubView(id)}
+              className={cn(
+                "flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left transition-all font-semibold text-xs whitespace-nowrap shrink-0 w-auto md:w-full",
+                subView === id
+                  ? "bg-primary/8 text-primary border-l-2 border-primary md:rounded-l-none"
+                  : "text-text/55 hover:bg-gray-50 hover:text-text border-l-2 border-transparent md:rounded-l-none",
+              )}
+            >
+              <Icon className="w-4 h-4 shrink-0" />
+              {label}
+            </button>
+          ))}
         </div>
 
         {/* Context-aware Sidebar Panel (Only for Predict view) */}
@@ -896,8 +883,10 @@ function AppInner() {
         {/* User badge + Admin + Logout */}
         <div className="px-4 py-4 border-t border-gray-100 flex flex-col gap-2 shrink-0">
           {auth.user && (
-            <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-xl">
-              <User className="w-4 h-4 text-text/50 shrink-0" />
+            <div className="flex items-center gap-2 px-3 py-2 bg-blue-50/50 border border-blue-100/60 rounded-xl">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0">
+                <User className="w-3 h-3 text-white" />
+              </div>
               <span className="text-xs font-semibold text-text truncate flex-1">{auth.user.username}</span>
               <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-primary/10 text-primary rounded-md">{auth.user.role}</span>
             </div>
@@ -923,19 +912,21 @@ function AppInner() {
       </aside>
 
       {/* Main Content Pane */}
-      <main className="flex-1 p-8 overflow-y-auto bg-slate-50/50 flex justify-center min-h-screen">
+      <main className="flex-1 p-8 overflow-y-auto bg-[#F8FAFC] flex justify-center min-h-screen">
         <div className="w-full max-w-4xl flex flex-col gap-6">
           {/* Header Bar with Mode Toggle & Patient Info */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-100">
             <div>
-              <span className="text-xs text-text/50 font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-primary text-[10px] font-bold mb-1.5 border border-blue-100/60 uppercase tracking-wider">
                 Hệ thống quyết định y khoa
-              </span>
-              <h2 className="text-2xl font-bold font-heading text-text">
-                {subView === "predict" && "Dự đoán Lâm sàng"}
-                {subView === "patients" && "Quản lý Bệnh nhân"}
-                {subView === "history" && "Lịch sử Phân tích"}
-                {subView === "analytics" && "Phân tích & Báo cáo"}
+              </div>
+              <h2 className="text-2xl font-bold font-heading">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                  {subView === "predict" && "Dự đoán Lâm sàng"}
+                  {subView === "patients" && "Quản lý Bệnh nhân"}
+                  {subView === "history" && "Lịch sử Phân tích"}
+                  {subView === "analytics" && "Phân tích & Báo cáo"}
+                </span>
               </h2>
             </div>
 
@@ -1050,7 +1041,7 @@ function AppInner() {
                   <button
                     onClick={handleAnalyze}
                     disabled={isLoading || !text.trim()}
-                    className="flex items-center justify-center gap-2 px-8 py-4 bg-text text-white font-bold rounded-2xl hover:bg-black disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg min-w-[220px]"
+                    className="flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/25 min-w-[220px]"
                   >
                     {isLoading ? (
                       <>
