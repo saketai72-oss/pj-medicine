@@ -735,21 +735,7 @@ function AppInner() {
                 © 2026 Drug-Pred AI. All Rights Reserved.
               </p>
 
-              <div className="flex gap-4 text-sm text-white/50">
-                <button
-                  onClick={() => setView("404")}
-                  className="hover:text-white"
-                >
-                  Demo 404
-                </button>
 
-                <button
-                  onClick={() => setView("error")}
-                  className="hover:text-white"
-                >
-                  Demo Error
-                </button>
-              </div>
             </div>
           </div>
         </footer>
