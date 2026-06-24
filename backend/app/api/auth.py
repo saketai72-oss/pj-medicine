@@ -32,6 +32,13 @@ async def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Account is disabled",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
     expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
         "sub": str(user.id),

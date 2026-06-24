@@ -6,6 +6,7 @@ from uuid import UUID
 import uuid
 
 from app.db.session import get_db
+from app.dependencies import get_current_user
 from app.models import Patient, User
 from app.schemas import PatientCreate, PatientResponse
 
@@ -13,16 +14,17 @@ router = APIRouter()
 
 
 @router.post("", response_model=PatientResponse, status_code=201)
-async def create_patient(patient_in: PatientCreate, db: AsyncSession = Depends(get_db)):
+async def create_patient(
+    patient_in: PatientCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     patient_code = f"BN-{str(uuid.uuid4())[:8].upper()}"
-
-    user_query = await db.execute(select(User).limit(1))
-    user = user_query.scalars().first()
 
     patient = Patient(
         **patient_in.model_dump(),
         patient_code=patient_code,
-        created_by=user.id if user else None,
+        created_by=current_user.id if current_user else None,
     )
     db.add(patient)
     await db.commit()

@@ -289,12 +289,20 @@ export default function PatientSection({ onSelectPatientForPrediction }: Patient
             </div>
           </>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-center gap-3">
-            <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center border border-gray-100 text-text/30">
-              <User className="w-8 h-8" />
+          <div className="flex-1 flex flex-col items-center justify-center text-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-primary/8 border border-primary/15 flex items-center justify-center">
+              <User className="w-8 h-8 text-primary/50" />
             </div>
-            <h3 className="text-lg font-bold text-text/75">Chưa có bệnh nhân nào được chọn</h3>
-            <p className="text-sm text-text/50 max-w-sm">Chọn bệnh nhân từ danh sách bên trái hoặc nhấn nút "+" để thêm mới bệnh nhân.</p>
+            <div>
+              <h3 className="text-lg font-bold text-text/75">Chưa có bệnh nhân nào được chọn</h3>
+              <p className="text-sm text-text/45 max-w-sm mt-1">Chọn bệnh nhân từ danh sách bên trái hoặc nhấn nút "+" để thêm mới.</p>
+            </div>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-2 bg-primary/8 border border-primary/20 text-primary rounded-xl text-xs font-bold hover:bg-primary/15 transition"
+            >
+              + Thêm bệnh nhân mới
+            </button>
           </div>
         )}
       </div>
@@ -304,11 +312,20 @@ export default function PatientSection({ onSelectPatientForPrediction }: Patient
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-              <h3 className="text-lg font-bold font-heading text-text">Thêm bệnh nhân mới</h3>
+            <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-white">
+              <div>
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-primary text-[9px] font-bold mb-1.5 border border-blue-100/60 uppercase tracking-wider">
+                  Hồ sơ bệnh nhân mới
+                </div>
+                <h3 className="text-lg font-bold font-heading">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    Thêm bệnh nhân mới
+                  </span>
+                </h3>
+              </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-xs font-semibold text-text/50 hover:text-text"
+                className="text-xs font-semibold text-text/40 hover:text-text/70 transition"
               >
                 Hủy
               </button>

@@ -10,7 +10,7 @@ import {
 import { getAnalyticsOverview, getAnalyticsDailyUsage, getAnalyticsDrugDistribution } from "../services/api";
 import type { DashboardStats } from "../types";
 
-const COLORS = ["#0055ff", "#00c3a6", "#ffb400", "#ff4466", "#9933ff", "#ff7700"];
+const COLORS = ["#0891B2", "#22D3EE", "#059669", "#64748B", "#8B5CF6", "#F59E0B"];
 
 export default function AnalyticsDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -64,8 +64,15 @@ export default function AnalyticsDashboard() {
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-6">
       <header className="mb-2">
-        <h2 className="text-3xl font-bold font-heading text-text">Báo cáo & Phân tích</h2>
-        <p className="text-text/70 text-sm mt-1">Đánh giá hiệu năng mô hình AI và hoạt động lâm sàng</p>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-primary text-[10px] font-bold mb-2 border border-blue-100/60 uppercase tracking-wider">
+          Phân tích dữ liệu
+        </div>
+        <h2 className="text-3xl font-bold font-heading">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+            Báo cáo & Phân tích
+          </span>
+        </h2>
+        <p className="text-text/65 text-sm mt-1">Đánh giá hiệu năng mô hình AI và hoạt động lâm sàng</p>
       </header>
 
       {/* Stats Cards */}
@@ -155,7 +162,7 @@ export default function AnalyticsDashboard() {
                   contentStyle={{ backgroundColor: "#0f172a", borderRadius: "12px", border: "none", color: "#fff" }}
                   labelStyle={{ fontWeight: "bold" }}
                 />
-                <Line type="monotone" dataKey="predictions" stroke="#0055ff" strokeWidth={3} dot={false} activeDot={{ r: 6 }} name="Lượt chạy" />
+                <Line type="monotone" dataKey="predictions" stroke="#0891B2" strokeWidth={3} dot={false} activeDot={{ r: 6, fill: "#0891B2" }} name="Lượt chạy" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -177,7 +184,7 @@ export default function AnalyticsDashboard() {
                   contentStyle={{ backgroundColor: "#0f172a", borderRadius: "12px", border: "none", color: "#fff" }}
                   labelStyle={{ fontWeight: "bold" }}
                 />
-                <Bar dataKey="count" fill="#00c3a6" radius={[0, 6, 6, 0]} name="Lần gợi ý" barSize={14} />
+                <Bar dataKey="count" fill="#0891B2" radius={[0, 6, 6, 0]} name="Lần gợi ý" barSize={14} />
               </BarChart>
             </ResponsiveContainer>
           </div>

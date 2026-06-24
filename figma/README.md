@@ -1,11 +1,12 @@
 # Figma Designs — Drug-Pred AI
 
-2 frame được dựng bám sát frontend (`frontend/src/App.tsx`), xuất dạng SVG để **kéo thẳng vào Figma → tự thành Frame + layer vector chỉnh sửa được** (không cần plugin).
+3 frame được dựng bám sát frontend (`frontend/src/App.tsx`, `AdminDashboard.tsx`), xuất dạng SVG để **kéo thẳng vào Figma → tự thành Frame + layer vector chỉnh sửa được** (không cần plugin).
 
 | File | Màn hình | Khổ |
 |------|----------|-----|
 | `01-landing.svg` | Landing Page (Navbar · Hero · Kiến trúc 4 bước · Tech Stack · Footer) | 1440 × 2120 |
 | `02-dashboard.svg` | Clinical Dashboard / CDSS (Sidebar · Textarea · Kết quả Top-3 · XAI · Disclaimer) | 1440 × 1080 |
+| `03-admin-dashboard.svg` | Admin Dashboard (Header · 5 KPI Cards · Line/Bar Charts · Quản lý người dùng · Severity Pie · Status Bars · Triệu chứng · System Health) | 1440 × 1130 |
 
 ## Cách import vào Figma
 1. Mở file Figma → **kéo-thả** file `.svg` vào canvas (hoặc menu **File → Place image…**).

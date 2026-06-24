@@ -123,7 +123,11 @@ async def test_list_users_non_admin_returns_403(client):
 
 @pytest.mark.asyncio
 async def test_list_users_no_token_returns_401(client):
+    from app.dependencies import get_current_user
+    # Remove mock so real OAuth2 check runs and returns 401 (no token provided)
+    app.dependency_overrides.pop(get_current_user, None)
     response = await client.get("/api/admin/users")
+    app.dependency_overrides.clear()
     assert response.status_code == 401
 
 
